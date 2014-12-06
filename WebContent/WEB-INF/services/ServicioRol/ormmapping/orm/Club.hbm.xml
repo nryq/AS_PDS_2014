@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Universidad del Pais Vasco
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="orm.Club" table="club" lazy="false">
+		<id name="id" column="id" type="integer" unsaved-value="0">
+			<generator class="increment">
+			</generator>
+		</id>
+		<property name="nombre" column="nombre" unique="true" type="string" length="50" not-null="true" lazy="false"/>
+		<many-to-one name="id_jefe" column="id_jefe" class="orm.Persona" cascade="save-update,lock" unique="true" not-null="true" lazy="no-proxy" access="field">
+		</many-to-one>
+		<property name="localidad" column="localidad" type="string" length="50" not-null="true" lazy="false"/>
+		<property name="descripcion" column="descripcion" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="reclutamiento" column="reclutamiento" type="byte" length="3" not-null="false" lazy="false"/>
+		<set name="ORM_Club_Persona" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="id_club" not-null="true"/>
+			<one-to-many class="orm.Club_Persona"/>
+		</set>
+		<set name="ORM_Equipo" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="clubid" not-null="true"/>
+			<one-to-many class="orm.Equipo"/>
+		</set>
+	</class>
+</hibernate-mapping>

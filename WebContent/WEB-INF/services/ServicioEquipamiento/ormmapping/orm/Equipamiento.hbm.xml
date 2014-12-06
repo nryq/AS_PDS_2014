@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Universidad del Pais Vasco
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="orm.Equipamiento" table="Equipamiento" lazy="false">
+		<id name="id" column="id" type="integer" unsaved-value="0">
+			<generator class="increment">
+			</generator>
+		</id>
+		<many-to-one name="id_tipo" cascade="lock" column="id_tipo" class="orm.Tipo_equip" not-null="false" lazy="no-proxy" access="field">
+		</many-to-one>
+		<property name="nombre" column="nombre" unique="true" type="string" length="255" not-null="true" lazy="false"/>
+		<property name="material" column="material" type="string" length="20" not-null="false" lazy="false"/>
+		<set name="ORM_Persona_Equipamiento" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="id_Equipamiento" not-null="true"/>
+			<one-to-many class="orm.Persona_Equipamiento"/>
+		</set>
+	</class>
+</hibernate-mapping>

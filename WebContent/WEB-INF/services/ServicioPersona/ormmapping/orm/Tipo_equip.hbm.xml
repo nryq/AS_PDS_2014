@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Universidad del Pais Vasco
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="orm.Tipo_equip" table="tipo_equip" lazy="false">
+		<id name="id_tipo" column="id_tipo" type="integer" unsaved-value="0">
+			<generator class="native">
+			</generator>
+		</id>
+		<property name="desc_tipo" column="desc_tipo" unique="true" type="integer" length="10" not-null="true" lazy="false"/>
+		<set name="ORM_Equipamiento" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="id_tipo" not-null="false"/>
+			<one-to-many class="orm.Equipamiento"/>
+		</set>
+	</class>
+</hibernate-mapping>

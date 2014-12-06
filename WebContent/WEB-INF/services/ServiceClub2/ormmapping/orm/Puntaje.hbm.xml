@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Universidad del Pais Vasco
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="orm.Puntaje" table="Puntaje" lazy="false">
+		<id name="id" column="id" type="integer" unsaved-value="0">
+			<generator class="increment">
+			</generator>
+		</id>
+		<property name="bajas" column="bajas" type="integer" length="10" not-null="false" lazy="false"/>
+		<property name="muertes" column="muertes" type="integer" length="10" not-null="false" lazy="false"/>
+		<property name="partidas" column="partidas" type="integer" length="10" not-null="false" lazy="false"/>
+		<property name="victorias" column="victorias" type="integer" length="10" not-null="false" lazy="false"/>
+		<property name="derrotas" column="derrotas" type="integer" length="10" not-null="false" lazy="false"/>
+		<set name="ORM_Persona" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="Puntajeid" not-null="false"/>
+			<one-to-many class="orm.Persona"/>
+		</set>
+	</class>
+</hibernate-mapping>

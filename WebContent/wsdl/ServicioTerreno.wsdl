@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://webservice" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://webservice" xmlns:intf="http://webservice" xmlns:tns1="http://domain" xmlns:tns2="http://orm" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://webservice" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://domain"/>
+   <import namespace="http://orm"/>
+   <element name="crearAnuncioTerreno">
+    <complexType>
+     <sequence>
+      <element name="oTerrenoVO" type="tns1:TerrenoVO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="crearAnuncioTerrenoResponse">
+    <complexType>
+     <sequence>
+      <element name="crearAnuncioTerrenoReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="unirTerrenoPersona">
+    <complexType>
+     <sequence>
+      <element name="persona" type="tns2:Persona"/>
+      <element name="terreno" type="tns2:Terreno"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="unirTerrenoPersonaResponse">
+    <complexType>
+     <sequence>
+      <element name="unirTerrenoPersonaReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="filtrarPersonas">
+    <complexType>
+     <sequence>
+      <element name="id" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="filtrarPersonasResponse">
+    <complexType>
+     <sequence>
+      <element name="filtrarPersonasReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="listarPersonas">
+    <complexType/>
+   </element>
+   <element name="listarPersonasResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="listarPersonasReturn" type="tns2:Terreno"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="borrarTerreno">
+    <complexType>
+     <sequence>
+      <element name="id" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="borrarTerrenoResponse">
+    <complexType>
+     <sequence>
+      <element name="borrarTerrenoReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="modificarPersona">
+    <complexType>
+     <sequence>
+      <element name="id" type="xsd:int"/>
+      <element name="oPersonaVO" type="tns1:PersonaVO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="modificarPersonaResponse">
+    <complexType>
+     <sequence>
+      <element name="modificarPersonaReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://domain" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://orm"/>
+   <complexType name="TerrenoVO">
+    <sequence>
+     <element name="condiciones" nillable="true" type="xsd:string"/>
+     <element name="descripcion" nillable="true" type="xsd:string"/>
+     <element name="direccion" nillable="true" type="xsd:string"/>
+     <element name="nombre" nillable="true" type="xsd:string"/>
+     <element name="valor" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="PersonaVO">
+    <sequence>
+     <element name="clave" nillable="true" type="xsd:string"/>
+     <element name="correo" nillable="true" type="xsd:string"/>
+     <element name="descripcion" nillable="true" type="xsd:string"/>
+     <element name="nombre" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://orm" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://domain"/>
+   <complexType name="Puntaje">
+    <sequence>
+     <element name="ORMID" type="xsd:int"/>
+     <element name="bajas" nillable="true" type="xsd:int"/>
+     <element name="derrotas" nillable="true" type="xsd:int"/>
+     <element name="id" type="xsd:int"/>
+     <element name="muertes" nillable="true" type="xsd:int"/>
+     <element name="partidas" nillable="true" type="xsd:int"/>
+     <element name="victorias" nillable="true" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="Club">
+    <sequence>
+     <element name="ORMID" type="xsd:int"/>
+     <element name="descripcion" nillable="true" type="xsd:string"/>
+     <element name="id" type="xsd:int"/>
+     <element name="id_jefe" nillable="true" type="tns2:Persona"/>
+     <element name="localidad" nillable="true" type="xsd:string"/>
+     <element name="nombre" nillable="true" type="xsd:string"/>
+     <element name="reclutamiento" nillable="true" type="xsd:byte"/>
+    </sequence>
+   </complexType>
+   <complexType name="Persona">
+    <sequence>
+     <element name="ORMID" type="xsd:int"/>
+     <element name="ORM_Puntaje" nillable="true" type="tns2:Puntaje"/>
+     <element name="clave" nillable="true" type="xsd:string"/>
+     <element name="club" nillable="true" type="tns2:Club"/>
+     <element name="correo" nillable="true" type="xsd:string"/>
+     <element name="descripcion" nillable="true" type="xsd:string"/>
+     <element name="id" type="xsd:int"/>
+     <element name="nombre" nillable="true" type="xsd:string"/>
+     <element name="puntaje" nillable="true" type="tns2:Puntaje"/>
+    </sequence>
+   </complexType>
+   <complexType name="Terreno">
+    <sequence>
+     <element name="ORMID" type="xsd:int"/>
+     <element name="condiciones" nillable="true" type="xsd:string"/>
+     <element name="descripcion" nillable="true" type="xsd:string"/>
+     <element name="direccion" nillable="true" type="xsd:string"/>
+     <element name="id" type="xsd:int"/>
+     <element name="nombre" nillable="true" type="xsd:string"/>
+     <element name="valor" type="xsd:int"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="listarPersonasRequest">
+
+      <wsdl:part element="impl:listarPersonas" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="borrarTerrenoResponse">
+
+      <wsdl:part element="impl:borrarTerrenoResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="filtrarPersonasRequest">
+
+      <wsdl:part element="impl:filtrarPersonas" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="listarPersonasResponse">
+
+      <wsdl:part element="impl:listarPersonasResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="borrarTerrenoRequest">
+
+      <wsdl:part element="impl:borrarTerreno" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="crearAnuncioTerrenoRequest">
+
+      <wsdl:part element="impl:crearAnuncioTerreno" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="unirTerrenoPersonaResponse">
+
+      <wsdl:part element="impl:unirTerrenoPersonaResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="filtrarPersonasResponse">
+
+      <wsdl:part element="impl:filtrarPersonasResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="unirTerrenoPersonaRequest">
+
+      <wsdl:part element="impl:unirTerrenoPersona" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="crearAnuncioTerrenoResponse">
+
+      <wsdl:part element="impl:crearAnuncioTerrenoResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="modificarPersonaRequest">
+
+      <wsdl:part element="impl:modificarPersona" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="modificarPersonaResponse">
+
+      <wsdl:part element="impl:modificarPersonaResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="ServicioTerreno">
+
+      <wsdl:operation name="crearAnuncioTerreno">
+
+         <wsdl:input message="impl:crearAnuncioTerrenoRequest" name="crearAnuncioTerrenoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:crearAnuncioTerrenoResponse" name="crearAnuncioTerrenoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="unirTerrenoPersona">
+
+         <wsdl:input message="impl:unirTerrenoPersonaRequest" name="unirTerrenoPersonaRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:unirTerrenoPersonaResponse" name="unirTerrenoPersonaResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="filtrarPersonas">
+
+         <wsdl:input message="impl:filtrarPersonasRequest" name="filtrarPersonasRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:filtrarPersonasResponse" name="filtrarPersonasResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listarPersonas">
+
+         <wsdl:input message="impl:listarPersonasRequest" name="listarPersonasRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:listarPersonasResponse" name="listarPersonasResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="borrarTerreno">
+
+         <wsdl:input message="impl:borrarTerrenoRequest" name="borrarTerrenoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:borrarTerrenoResponse" name="borrarTerrenoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="modificarPersona">
+
+         <wsdl:input message="impl:modificarPersonaRequest" name="modificarPersonaRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:modificarPersonaResponse" name="modificarPersonaResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="ServicioTerrenoSoapBinding" type="impl:ServicioTerreno">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="crearAnuncioTerreno">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="crearAnuncioTerrenoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="crearAnuncioTerrenoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="unirTerrenoPersona">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="unirTerrenoPersonaRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="unirTerrenoPersonaResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="filtrarPersonas">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="filtrarPersonasRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="filtrarPersonasResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listarPersonas">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="listarPersonasRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="listarPersonasResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="borrarTerreno">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="borrarTerrenoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="borrarTerrenoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="modificarPersona">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="modificarPersonaRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="modificarPersonaResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="ServicioTerrenoService">
+
+      <wsdl:port binding="impl:ServicioTerrenoSoapBinding" name="ServicioTerreno">
+
+         <wsdlsoap:address location="http://localhost:8080/AirSoftv2.0/services/ServicioTerreno"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

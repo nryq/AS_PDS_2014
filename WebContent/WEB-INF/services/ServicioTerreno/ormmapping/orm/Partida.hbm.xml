@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Universidad del Pais Vasco
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="orm.Partida" table="partida" lazy="false">
+		<id name="id" column="id" type="integer" unsaved-value="0">
+			<generator class="increment">
+			</generator>
+		</id>
+		<property name="lugar" column="lugar" type="string" length="50" not-null="true" lazy="false"/>
+		<property name="fecha_hr" column="fecha_hr" unique="true" type="string" length="20" not-null="true" lazy="false"/>
+		<many-to-one name="id_equipo_ganador" cascade="lock" column="id_equipo_ganador" class="orm.Equipo" not-null="true" lazy="no-proxy" access="field">
+		</many-to-one>
+		<set name="ORM_Partida_equipo" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="partidaid" not-null="true"/>
+			<one-to-many class="orm.Partida_equipo"/>
+		</set>
+		<set name="ORM_Partida_movimiento" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="partidaid" not-null="true"/>
+			<one-to-many class="orm.Partida_movimiento"/>
+		</set>
+	</class>
+</hibernate-mapping>

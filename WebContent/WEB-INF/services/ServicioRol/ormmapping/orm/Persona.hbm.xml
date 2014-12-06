@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Universidad del Pais Vasco
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="orm.Persona" table="Persona" lazy="false">
+		<id name="id" column="id" type="integer" unsaved-value="0">
+			<generator class="increment">
+			</generator>
+		</id>
+		<property name="nombre" column="nombre" type="string" length="50" not-null="true" lazy="false"/>
+		<property name="correo" column="correo" unique="true" type="string" length="30" not-null="true" lazy="false"/>
+		<property name="clave" column="clave" type="string" length="16" not-null="false" lazy="false"/>
+		<property name="descripcion" column="descripcion" type="string" length="255" not-null="false" lazy="false"/>
+		<many-to-one name="puntaje" cascade="lock" column="Puntajeid" class="orm.Puntaje" not-null="false" lazy="no-proxy" access="field">
+		</many-to-one>
+		<set name="ORM_Persona_Rol" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="id_Persona" not-null="true"/>
+			<one-to-many class="orm.Persona_Rol"/>
+		</set>
+		<set name="ORM_Persona_Equipamiento" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="id_Persona" not-null="true"/>
+			<one-to-many class="orm.Persona_Equipamiento"/>
+		</set>
+		<set name="ORM_Persona_Terreno" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="id_Persona" not-null="true"/>
+			<one-to-many class="orm.Persona_Terreno"/>
+		</set>
+		<one-to-one name="club" class="orm.Club" cascade="save-update,lock" property-ref="id_jefe" lazy="no-proxy" access="field"/>
+		<set name="ORM_Club_Persona" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="id_Persona" not-null="true"/>
+			<one-to-many class="orm.Club_Persona"/>
+		</set>
+		<set name="ORM_Persona_equipo" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="Personaid" not-null="true"/>
+			<one-to-many class="orm.Persona_equipo"/>
+		</set>
+		<set name="ORM_Persona_Entidad" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="id_persona" not-null="true"/>
+			<one-to-many class="orm.Persona_Entidad"/>
+		</set>
+	</class>
+</hibernate-mapping>

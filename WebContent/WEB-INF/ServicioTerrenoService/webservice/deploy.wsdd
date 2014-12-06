@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from ServicioTerrenoService WSDL service -->
+
+  <service name="ServicioTerreno" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://webservice"/>
+      <parameter name="wsdlServiceElement" value="ServicioTerrenoService"/>
+      <parameter name="schemaQualified" value="http://webservice,http://orm,http://domain"/>
+      <parameter name="wsdlServicePort" value="ServicioTerreno"/>
+      <parameter name="className" value="webservice.ServicioTerreno"/>
+      <parameter name="wsdlPortType" value="ServicioTerreno"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://webservice" xmlns:retNS="http://webservice" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="crearAnuncioTerreno" qname="operNS:crearAnuncioTerreno" returnQName="retNS:crearAnuncioTerrenoReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://webservice" xmlns:tns="http://domain" qname="pns:oTerrenoVO" type="tns:TerrenoVO"/>
+      </operation>
+      <operation xmlns:operNS="http://webservice" xmlns:retNS="http://webservice" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="unirTerrenoPersona" qname="operNS:unirTerrenoPersona" returnQName="retNS:unirTerrenoPersonaReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://webservice" xmlns:tns="http://orm" qname="pns:persona" type="tns:Persona"/>
+        <parameter xmlns:pns="http://webservice" xmlns:tns="http://orm" qname="pns:terreno" type="tns:Terreno"/>
+      </operation>
+      <operation xmlns:operNS="http://webservice" xmlns:retNS="http://webservice" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="filtrarPersonas" qname="operNS:filtrarPersonas" returnQName="retNS:filtrarPersonasReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://webservice" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://webservice" xmlns:retNS="http://webservice" xmlns:rtns="http://orm" name="listarPersonas" qname="operNS:listarPersonas" returnQName="retNS:listarPersonasReturn" returnType="rtns:Terreno" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://webservice" xmlns:retNS="http://webservice" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="borrarTerreno" qname="operNS:borrarTerreno" returnQName="retNS:borrarTerrenoReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://webservice" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://webservice" xmlns:retNS="http://webservice" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="modificarPersona" qname="operNS:modificarPersona" returnQName="retNS:modificarPersonaReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://webservice" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:int"/>
+        <parameter xmlns:pns="http://webservice" xmlns:tns="http://domain" qname="pns:oPersonaVO" type="tns:PersonaVO"/>
+      </operation>
+      <parameter name="allowedMethods" value="unirTerrenoPersona modificarPersona listarPersonas borrarTerreno filtrarPersonas crearAnuncioTerreno"/>
+
+      <typeMapping xmlns:ns="http://domain" qname="ns:TerrenoVO" type="java:domain.TerrenoVO" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://orm" qname="ns:Terreno" type="java:orm.Terreno" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://orm" qname="ns:Club" type="java:orm.Club" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://domain" qname="ns:PersonaVO" type="java:domain.PersonaVO" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://orm" qname="ns:Puntaje" type="java:orm.Puntaje" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://orm" qname="ns:Persona" type="java:orm.Persona" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  </service>
+</deployment>
